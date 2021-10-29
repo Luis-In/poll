@@ -2,7 +2,8 @@ import useStyles from "./AppStyle"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 //Components
 import Candidatos from './Candidatos/Candidatos'
-
+import Resultados from "./Resultados/Resultados"
+// Firebase
 
 function App() {
   const classes = useStyles()
@@ -11,11 +12,7 @@ function App() {
     <Router>
     <div className="App">
         <Candidatos />
-        <Switch>
-          <Route path="/candidatos">
-            <Candidatos />
-          </Route>
-        </Switch>
+        <Resultados />
     </div>
     </Router>
     

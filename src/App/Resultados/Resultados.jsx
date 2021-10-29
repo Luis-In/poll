@@ -1,8 +1,10 @@
+
+
 const Resultados = () => {
     return (
-        <div>
+        <section>
             
-        </div>
+        </section>
     );
 }
  

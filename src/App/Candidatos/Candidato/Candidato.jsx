@@ -3,8 +3,13 @@ import useStyles from "./CandidatoStyle"
 
 const Candidato = ({datos}) => {
     const classes = useStyles()
-    const votar = (e) => {
-        console.log(datos.value)
+    const votar = () => {
+        if(confirmarVoto) {
+            console.log(datos.value)
+        }
+    }
+    const confirmarVoto = () => {
+        
     }
     return (
         <Card className={classes.root}>
