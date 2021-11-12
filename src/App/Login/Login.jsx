@@ -1,50 +1,47 @@
 import { Card, Button, CardMedia, TextField } from '@mui/material';
 import useStyles from "./LoginStyle"
 import escudo from './club_social_progreso.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 // Firebase
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import firebaseConfig from '../firebaseCon'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCAO0JE7KwGEAtvJsiB603Lcd9kPVuq95g",
-  authDomain: "web-hosting-chimi.firebaseapp.com",
-  databaseURL: "https://web-hosting-chimi-default-rtdb.firebaseio.com",
-  projectId: "web-hosting-chimi",
-  storageBucket: "web-hosting-chimi.appspot.com",
-  messagingSenderId: "40648514015",
-  appId: "1:40648514015:web:b75949cb87475fe3d78c6a",
-  measurementId: "G-RMPX1GXCYW"
-}
-  // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore() 
 
-const Login = ({history}) => {
+const Login = () => {
+    useEffect(() => {
+        if(localStorage.getItem('votante')) {
+            history.push("/votar")
+        }
+    })
     const classes = useStyles()
     const [datos, setDatos] = useState({carnet:Number,fechaNacimiento:""})
     const [error, setError] = useState("")
+    let history = useHistory()
 
-     function handleSubmit(e) {
+    async function loginVotantes(e) {
         e.preventDefault()
-        loginVotantes(datos)
-    }
-    async function loginVotantes(datosLogin) {
-        const datosVotantes = await getDocs(collection(db, "Votantes"));
         let votantes = []
-        datosVotantes.forEach((votante) => {
-            votantes.push(votante.data())
+        const querySnap = await getDocs(collection(db, "Votantes"));
+        querySnap.forEach((socio) => {
+            votantes.push(socio.data())
         })
-        const socio = votantes.find((votante) => {
-            return votante.CarnetIdentidad === datosLogin.carnet 
+        let socio = votantes.find((votante) => {
+            return votante.CarnetIdentidad === datos.carnet 
+                && votante.FechaNacimiento === datos.fechaNacimiento        
         })
-        if(socio === undefined) {                                       
+        if(socio == undefined) {
             return setError("Revise los datos introducidos")
         }
+        localStorage.setItem('votante', socio.CarnetIdentidad)
+        history.push("/votar")
     }
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <form onSubmit={handleSubmit} className={classes.root}>
+        <Card sx={{ maxWidth: 345 }} className={classes.card}>
+            <form onSubmit={loginVotantes} className={classes.form}>
                 <CardMedia 
                     component="img"
                     title="Club Social Progreso" 

@@ -15,6 +15,11 @@ export default makeStyles(() => ({
     actions: {
         display: "flex",
         justifyContent: "center"
+    },
+    dialogActions: {
+        display: "flex",
+        justifyContent: "center",
+        margin: "auto"
     }
 }))
 
