@@ -1,35 +1,34 @@
 import { Card, Typography, Button, CardActions, CardContent, CardMedia } from "@mui/material"
 import { Dialog, DialogActions, DialogTitle } from "@mui/material"
 import useStyles from "./CandidatoStyle"
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom"
 //firebase
 import { initializeApp } from "firebase/app";
-import {getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+import {getFirestore, doc, updateDoc, increment } from "firebase/firestore";
 import firebaseConfig from '../../firebaseCon'
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore() 
 
-const Candidato = ({datos}) => {
+const Candidato = ({datos, voto}) => {
     const classes = useStyles()
     const [open, setOpen] = useState(false)
-    const [votoSocio, setVotoSocio] = useState()
-    useEffect(() => {
-        async function haVotado() {
-            const votoRef = doc(db, "Votantes", localStorage.getItem('votante'));
-            const votoSnap = await getDoc(votoRef);
-            let datos = votoSnap.data()
-            setVotoSocio(datos.voto)
-        }
-        haVotado()
-    }, [])
+    const history = useHistory()
+
     async function handleVote () {
         setOpen(true)
         if(handleClose) {
-            const VoteRef = doc(db, "Votantes", localStorage.getItem('votante'));
-            await updateDoc(VoteRef, {
+            const votoRef = doc(db, "Votantes", localStorage.getItem('votante'))
+            await updateDoc(votoRef, {
                 voto: datos.value
             })
+            const candiRef = doc(db, "CandidatoPresidente", datos.value)
+            await updateDoc(candiRef, {
+                Votos: increment(1)
+            })
+            localStorage.removeItem('votante')
+            history.push("/")
         }
     }
     function handleClose(confirmar) {
@@ -46,13 +45,13 @@ const Candidato = ({datos}) => {
                     <Typography variant="h4" gutterBottom textAlign="center">
                         {datos.Nombre}
                     </Typography>
-                    <Typography variant="h6">
-                        Presidente Club Social Progreso 2022-2024
+                    <Typography variant="h5">
+                        {`${datos.Puesto} 2021-2023`}
                     </Typography>
                 </div>
                 <CardActions className={classes.actions}>
                     <Button
-                        disabled={votoSocio>0 ? true : false} 
+                        disabled={voto>0 ? true : false} 
                         variant="contained" 
                         onClick={handleVote}>Votar</Button>
                 </CardActions>

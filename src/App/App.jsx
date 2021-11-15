@@ -22,8 +22,10 @@ function App() {
           <Route path="/votar" exact>
             <Candidatos />
           </Route>
+          <Route path="/resultados" exact>
+            <Resultados />
+          </Route>
         </Switch> 
-        <Resultados />
       </div>
     </Router>
     

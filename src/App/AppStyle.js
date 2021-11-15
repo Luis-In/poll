@@ -4,9 +4,10 @@ export default makeStyles(() => ({
     root: {
         maxWidth: "100%",
         display: "flex",
-        gap: "1rem",
+        gap: "10%",
         flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "start",
+        alignItems: "center",
+        height: "100vh"
     }
 }))

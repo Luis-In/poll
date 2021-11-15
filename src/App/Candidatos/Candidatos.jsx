@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react"
-import { Grid } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import { useHistory } from "react-router-dom"
 import Candidato from './Candidato/Candidato'
 //firebase
 import { initializeApp } from "firebase/app";
-import {getFirestore, collection, getDocs } from "firebase/firestore";
+import {getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore";
 import firebaseConfig from '../firebaseCon'
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore() 
 
-const Candidatos = () => {
+const Candidatos = ({}) => {
+    const [elecciones, setElecciones] = useState()
+    const history = useHistory()
+    const [socio, setSocio] = useState({})
+
     useEffect(() => {
         if(!localStorage.getItem('votante')) {
             return history.push("/login")
         }
+    }, [])
+    useEffect(() => {
         async function candidatos() {
             const datosCandidatos = await getDocs(collection(db, "CandidatoPresidente"));
             let candidatosPresidente = []
@@ -25,21 +31,41 @@ const Candidatos = () => {
         }
         candidatos()
     }, [])
-    const [elecciones, setElecciones] = useState()
-    const history = useHistory()
-
+    useEffect(() => {
+        async function socioVotante() {
+            const socioRef = doc(db, "Votantes", localStorage.getItem('votante'))
+            const socioSnap = await getDoc(socioRef)
+            let datos = socioSnap.data()
+            setSocio({nombre: datos.Nombre, voto: datos.voto })
+        }
+        socioVotante()
+    }, [])
+    
     return (
-        <Grid justifyContent="center" alignItems="center" container spacing={2} gap="1rem" height="100vh">
+        <>
+        <section style={{textAlign:"center", marginTop: "1rem"}}>
+            <Typography variant="h3">
+                {`Bienvenido ${socio?.nombre}`}
+            </Typography>
+            <Typography variant="h4">
+                Elecciones Club Social Progreso
+            </Typography>
+        </section>
+        <Grid justifyContent="center" alignItems="center" container spacing={2} gap="1rem">
             {
-                elecciones.candidatosPresidente.map(candidato => {
+                elecciones?.candidatosPresidente.map(candidato => {
                     let i = 0
                     i++
                     return(
-                        <Candidato datos={candidato} key={i} />
+                        <Candidato 
+                            datos={candidato} 
+                            voto={socio.voto} key={i} 
+                        />
                     )
                 })
             }       
         </Grid>
+        </>
     );
 }
  

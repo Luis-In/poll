@@ -10,7 +10,8 @@ export default makeStyles(() => ({
     },
     content: {
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        textAlign: "center"
     },
     actions: {
         display: "flex",

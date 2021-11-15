@@ -8,7 +8,8 @@ export default makeStyles(() => ({
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        width: "100%"
+        width: "100%",
+        gap: "2rem"
     },
     link: {
         color: "white",
