@@ -7,9 +7,8 @@ export default makeStyles(() => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
-        width: "100%",
-        gap: "2rem"
+        gap: "2rem",
+        height: "100%"
     },
     link: {
         color: "white",
@@ -21,9 +20,9 @@ export default makeStyles(() => ({
        justifyContent: "center",
        alignItems: "center",
        gap: "1rem",
-       padding: "1rem"
+       padding: "2rem",
     },
     img: {
-        width: "25% !important"
+        width: "300px !important"
     }
 }))

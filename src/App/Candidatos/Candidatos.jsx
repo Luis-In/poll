@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Grid, Typography } from "@mui/material"
 import { useHistory } from "react-router-dom"
 import Candidato from './Candidato/Candidato'
+import useStyles from "./CandidatoStyle"
 //firebase
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore";
@@ -11,6 +12,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore() 
 
 const Candidatos = ({}) => {
+    const classes = useStyles()
     const [elecciones, setElecciones] = useState()
     const history = useHistory()
     const [socio, setSocio] = useState({})
@@ -42,30 +44,28 @@ const Candidatos = ({}) => {
     }, [])
     
     return (
-        <>
-        <section style={{textAlign:"center", marginTop: "1rem"}}>
-            <Typography variant="h3">
-                {`Bienvenido ${socio?.nombre}`}
-            </Typography>
-            <Typography variant="h4">
-                Elecciones Club Social Progreso
-            </Typography>
+        <section className={classes.root}>
+            <div  style={{textAlign:"center", marginTop: "1rem"}}>
+                <Typography variant="h3">
+                    {`Bienvenido ${socio?.nombre}`}
+                </Typography>
+                <Typography variant="h4">
+                    Elecciones Club Social Progreso
+                </Typography>
+            </div>
+            <Grid justifyContent="center" alignItems="center" container spacing={2} gap="1rem">
+                {
+                    elecciones?.candidatosPresidente.map(candidato => {
+                        return(
+                            <Candidato 
+                                datos={candidato} 
+                                voto={socio.voto} key={candidato.value}
+                            />
+                        )
+                    })
+                }       
+            </Grid>
         </section>
-        <Grid justifyContent="center" alignItems="center" container spacing={2} gap="1rem">
-            {
-                elecciones?.candidatosPresidente.map(candidato => {
-                    let i = 0
-                    i++
-                    return(
-                        <Candidato 
-                            datos={candidato} 
-                            voto={socio.voto} key={i} 
-                        />
-                    )
-                })
-            }       
-        </Grid>
-        </>
     );
 }
  

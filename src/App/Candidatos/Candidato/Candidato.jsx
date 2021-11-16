@@ -18,10 +18,10 @@ const Candidato = ({datos, voto}) => {
 
     async function handleVote () {
         setOpen(true)
-        if(handleClose) {
+        if(handleClose === true) {
             const votoRef = doc(db, "Votantes", localStorage.getItem('votante'))
             await updateDoc(votoRef, {
-                voto: datos.value
+                Voto: datos.value
             })
             const candiRef = doc(db, "CandidatoPresidente", datos.value)
             await updateDoc(candiRef, {

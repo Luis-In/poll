@@ -12,11 +12,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore() 
 
 const Login = () => {
-    useEffect(() => {
-        if(localStorage.getItem('votante')) {
-            history.push("/votar")
-        }
-    })
     const classes = useStyles()
     const [datos, setDatos] = useState({carnet:Number,fechaNacimiento:""})
     const [error, setError] = useState("")
@@ -36,45 +31,52 @@ const Login = () => {
         if(socio == undefined) {
             return setError("Revise los datos introducidos")
         }
-        localStorage.setItem('votante', socio.CarnetIdentidad)
-        history.push("/votar")
+        if(socio?.Directiva !== undefined) {
+            localStorage.setItem('directiva', socio.CarnetIdentidad)
+            history.push("/resultados")
+        } else {
+            localStorage.setItem('votante', socio.CarnetIdentidad)
+            history.push("/votar")
+        }
     }
     return (
-        <Card sx={{ maxWidth: 345 }} className={classes.card}>
-            <form onSubmit={loginVotantes} className={classes.form}>
-                <CardMedia 
-                    component="img"
-                    title="Club Social Progreso" 
-                    image={escudo} 
-                    height="300"
-                    alt="Escudo Club Social Progreso"
-                />
-                <TextField 
-                    required 
-                    label="Carnet de Identidad" 
-                    autoFocus
-                    type="number"
-                    onInput={(e)=> {
-                        let carnet = parseInt(e.target.value)
-                        setDatos({...datos, carnet})
-                    }}
-                />
-                <TextField
-                    required
-                    label="Fecha de Nacimiento"
-                    type="date"
-                    onInput={(e)=> {
-                        let fecha = e.target.value
-                        setDatos({...datos, fechaNacimiento: fecha})
-                    }}
-                />
-                <Button
-                    type="submit"
-                    variant="contained">
-                    Verificar
-                </Button>
-            </form>
-        </Card>
+        <section className={classes.root}>
+            <Card sx={{ maxWidth: 345 }}>
+                <form onSubmit={loginVotantes} className={classes.form}>
+                    <CardMedia 
+                        component="img"
+                        title="Club Social Progreso" 
+                        image={escudo} 
+                        height="300"
+                        alt="Escudo Club Social Progreso"
+                    />
+                    <TextField 
+                        required 
+                        label="Carnet de Identidad" 
+                        type="number"
+                        onInput={(e)=> {
+                            let carnet = parseInt(e.target.value)
+                            setDatos({...datos, carnet})
+                        }}
+                    />
+                    <TextField
+                        autoFocus
+                        required
+                        label="Fecha de Nacimiento"
+                        type="date"
+                        onInput={(e)=> {
+                            let fecha = e.target.value
+                            setDatos({...datos, fechaNacimiento: fecha})
+                        }}
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained">
+                        Verificar
+                    </Button>
+                </form>
+            </Card>
+        </section>
     );
 }
  

@@ -7,9 +7,14 @@ export default makeStyles(() => ({
         justifyContent: "center",
         alignItems: "center",
         gap: "2rem",
-        textAlign: "center"
+        textAlign: "center",
+        flexDirection: "column"
     },
     card: {
         padding: "1rem"
+    },
+    cards: {
+        display: "flex",
+        gap: "2rem"
     }
 }))

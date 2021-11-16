@@ -26,13 +26,6 @@ const Titulo = () => {
                     </Button>
                 </CardActions>
             </Card>
-            <Card className={classes.card}>
-                <CardActions>
-                    <Button variant="contained">
-                        <Link className={classes.link} to="/resultados">Resultados</Link>
-                    </Button>
-                </CardActions>
-            </Card>
         </section>
     );
 }

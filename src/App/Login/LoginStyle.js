@@ -9,7 +9,10 @@ export default makeStyles(() => ({
         margin: "auto",
         padding: "1.5rem",
     },
-    card : {
-        marginTop: "5%"
+    root: {
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
     }
 }))

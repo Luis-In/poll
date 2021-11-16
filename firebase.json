@@ -4,18 +4,12 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "club-social-progreso",
     "public": "build",
+    "site": "club-social-progreso",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
