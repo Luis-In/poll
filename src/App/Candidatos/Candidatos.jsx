@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Grid, Typography } from "@mui/material"
+import { Grid, Typography, Button } from "@mui/material"
 import { useHistory } from "react-router-dom"
 import Candidato from './Candidato/Candidato'
 import useStyles from "./CandidatoStyle"
@@ -38,11 +38,14 @@ const Candidatos = ({}) => {
             const socioRef = doc(db, "Votantes", localStorage.getItem('votante'))
             const socioSnap = await getDoc(socioRef)
             let datos = socioSnap.data()
-            setSocio({nombre: datos.Nombre, voto: datos.voto })
+            setSocio({nombre: datos.Nombre, voto: datos.Voto })
         }
         socioVotante()
     }, [])
-    
+    function returnHome() {
+        localStorage.removeItem("votante")
+        history.push("/")
+    }
     return (
         <section className={classes.root}>
             <div  style={{textAlign:"center", marginTop: "1rem"}}>
@@ -65,6 +68,14 @@ const Candidatos = ({}) => {
                     })
                 }       
             </Grid>
+            <div className={(socio.voto>0) ? classes.voto : classes.hide}>
+                <Typography variant="h6">
+                    Gracias por haber emitido su voto
+                </Typography>
+                <Button variant="contained" onClick={returnHome}>
+                    Regresar al inicio
+                </Button>
+            </div>
         </section>
     );
 }

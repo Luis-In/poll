@@ -31,7 +31,7 @@ const Login = () => {
         if(socio == undefined) {
             return setError("Revise los datos introducidos")
         }
-        if(socio?.Directiva !== undefined) {
+        if(socio?.Directiva === true) {
             localStorage.setItem('directiva', socio.CarnetIdentidad)
             history.push("/resultados")
         } else {
@@ -50,6 +50,7 @@ const Login = () => {
                         height="300"
                         alt="Escudo Club Social Progreso"
                     />
+                    <span>{error}</span>
                     <TextField 
                         required 
                         label="Carnet de Identidad" 

@@ -8,6 +8,7 @@ export default makeStyles(() => ({
         maxWidth: "90%",
         margin: "auto",
         padding: "1.5rem",
+        textAlign: "center"
     },
     root: {
         height: "100%",

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Card, Typography, CardContent } from "@mui/material";
+import { Card, Typography, CardContent, Button} from "@mui/material";
 import { useHistory } from "react-router-dom";
 //firebase
-import {getFirestore, collection, getDocs, onSnapshot } from "firebase/firestore";
+import {getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../firebaseCon'
 import useStyles from './ResultadosStyle'
@@ -28,7 +28,10 @@ const Resultados = () => {
             setElecciones(candidatos)
         })
     }, [])
-
+    function returnHome() {
+        localStorage.removeItem('directiva')
+        history.push("/")
+    }
     return (
         <section className={classes.root}>
             <Typography variant="h2">
@@ -55,7 +58,11 @@ const Resultados = () => {
                 })
                 }
             </div>
-            
+            <div className="">
+                <Button variant="contained" onClick={returnHome}>
+                    Regresar al inicio
+                </Button>
+            </div>
         </section>
     );
 }

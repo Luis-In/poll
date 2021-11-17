@@ -8,5 +8,16 @@ export default makeStyles(() => ({
         justifyContent: "start",
         alignItems: "center",
         gap: "4rem"
+    },
+    voto: {
+        display: "flex",
+        textAlign: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: ".5rem"
+    },
+    hide: {
+        display: "none"
     }
 }))

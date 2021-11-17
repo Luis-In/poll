@@ -15,27 +15,24 @@ const Candidato = ({datos, voto}) => {
     const classes = useStyles()
     const [open, setOpen] = useState(false)
     const history = useHistory()
-
-    async function handleVote () {
-        setOpen(true)
-        if(handleClose === true) {
-            const votoRef = doc(db, "Votantes", localStorage.getItem('votante'))
-            await updateDoc(votoRef, {
-                Voto: datos.value
-            })
-            const candiRef = doc(db, "CandidatoPresidente", datos.value)
-            await updateDoc(candiRef, {
-                Votos: increment(1)
-            })
-            localStorage.removeItem('votante')
-            history.push("/")
-        }
-    }
     function handleClose(confirmar) {
         setOpen(false)
-        return confirmar
+        if(confirmar) {
+            handleVote()
+        }
     }
-
+    async function handleVote () {
+        const votoRef = doc(db, "Votantes", localStorage.getItem('votante'))
+        await updateDoc(votoRef, {
+            Voto: datos.value
+        })
+        const candiRef = doc(db, "CandidatoPresidente", datos.value)
+        await updateDoc(candiRef, {
+            Votos: increment(1)
+        })
+        localStorage.removeItem('votante')
+        history.push("/")
+    }
     return (
         <>
         <Card className={classes.root}>
@@ -51,9 +48,9 @@ const Candidato = ({datos, voto}) => {
                 </div>
                 <CardActions className={classes.actions}>
                     <Button
-                        disabled={voto>0 ? true : false} 
+                        disabled={(voto>0) ? true : false} 
                         variant="contained" 
-                        onClick={handleVote}>Votar</Button>
+                        onClick={()=>{setOpen(true)}}>Votar</Button>
                 </CardActions>
             </CardContent>
         </Card>
