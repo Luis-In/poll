@@ -28,10 +28,6 @@ const Resultados = () => {
             setElecciones(candidatos)
         })
     }, [])
-    function returnHome() {
-        localStorage.removeItem('directiva')
-        history.push("/")
-    }
     return (
         <section className={classes.root}>
             <Typography variant="h2">
@@ -57,11 +53,6 @@ const Resultados = () => {
                     )
                 })
                 }
-            </div>
-            <div className="">
-                <Button variant="contained" onClick={returnHome}>
-                    Regresar al inicio
-                </Button>
             </div>
         </section>
     );

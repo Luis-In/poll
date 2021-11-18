@@ -18,7 +18,11 @@ const Titulo = () => {
                 />
                 <Typography
                     variant="h4">
-                    Elecciones 2021-2023
+                    Elecciones
+                </Typography>
+                <Typography
+                    variant="h5">
+                    2021-2023
                 </Typography>
                 <CardActions>
                     <Button variant="contained">

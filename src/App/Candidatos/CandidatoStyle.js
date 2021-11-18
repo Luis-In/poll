@@ -7,7 +7,8 @@ export default makeStyles(() => ({
         height: "100%",
         justifyContent: "start",
         alignItems: "center",
-        gap: "4rem"
+        gap: "4rem",
+        textAlign:"center"
     },
     voto: {
         display: "flex",

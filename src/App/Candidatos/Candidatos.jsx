@@ -38,21 +38,20 @@ const Candidatos = ({}) => {
             const socioRef = doc(db, "Votantes", localStorage.getItem('votante'))
             const socioSnap = await getDoc(socioRef)
             let datos = socioSnap.data()
-            setSocio({nombre: datos.Nombre, voto: datos.Voto })
+            setSocio({nombre: datos.Nombre, voto: datos.Voto, apellido: datos.Apellido })
         }
         socioVotante()
     }, [])
-    function returnHome() {
-        localStorage.removeItem("votante")
-        history.push("/")
-    }
     return (
         <section className={classes.root}>
             <div  style={{textAlign:"center", marginTop: "1rem"}}>
-                <Typography variant="h3">
-                    {`Bienvenido ${socio?.nombre}`}
-                </Typography>
                 <Typography variant="h4">
+                    {`Bienvenido`}
+                </Typography>
+                <Typography variant="h6">
+                    {`${socio?.nombre} ${socio.apellido}`}
+                </Typography>
+                <Typography variant="subtitle1">
                     Elecciones Club Social Progreso
                 </Typography>
             </div>
@@ -72,9 +71,6 @@ const Candidatos = ({}) => {
                 <Typography variant="h6">
                     Gracias por haber emitido su voto
                 </Typography>
-                <Button variant="contained" onClick={returnHome}>
-                    Regresar al inicio
-                </Button>
             </div>
         </section>
     );
