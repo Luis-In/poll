@@ -1,7 +1,12 @@
 import { Card, Button, CardMedia, TextField } from '@mui/material';
+import { DatePicker } from '@mui/lab'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import { format } from 'date-fns'
+import esLocale from 'date-fns/locale/es';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import useStyles from "./LoginStyle"
 import escudo from './club_social_progreso.png'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // Firebase
 import { initializeApp } from "firebase/app";
@@ -13,7 +18,7 @@ const db = getFirestore()
 
 const Login = () => {
     const classes = useStyles()
-    const [datos, setDatos] = useState({carnet:Number,fechaNacimiento:""})
+    const [datos, setDatos] = useState({carnet:Number,fechaNacimiento: new Date() })
     const [error, setError] = useState("")
     let history = useHistory()
 
@@ -26,7 +31,7 @@ const Login = () => {
         })
         let socio = votantes.find((votante) => {
             return votante.CarnetIdentidad === datos.carnet 
-                && votante.FechaNacimiento === datos.fechaNacimiento        
+                && votante.FechaNacimiento === format(datos.fechaNacimiento, 'yyyy-MM-dd')        
         })
         if(socio == undefined) {
             return setError("Revise los datos introducidos")
@@ -60,16 +65,23 @@ const Login = () => {
                             setDatos({...datos, carnet})
                         }}
                     />
-                    <TextField
-                        autoFocus
-                        required
-                        label="Fecha de Nacimiento"
-                        type="date"
-                        onInput={(e)=> {
-                            let fecha = e.target.value
-                            setDatos({...datos, fechaNacimiento: fecha})
-                        }}
-                    />
+                    <LocalizationProvider 
+                        dateAdapter={AdapterDateFns}
+                        locale={esLocale}
+                    >
+                        <DatePicker
+                            required
+                            disableFuture
+                            label="Fecha de Nacimiento"
+                            openTo="day"
+                            value={datos.fechaNacimiento}
+                            views={['day', 'month', 'year']}
+                            onChange={(newVal) => {
+                                setDatos({...datos, fechaNacimiento: newVal})
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
                     <Button
                         type="submit"
                         variant="contained">
