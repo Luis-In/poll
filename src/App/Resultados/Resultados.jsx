@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Typography, CardContent, Button} from "@mui/material";
+import { Card, Typography, CardContent, Grid } from "@mui/material";
 import { useHistory } from "react-router-dom";
 //firebase
 import {getFirestore, collection, onSnapshot } from "firebase/firestore";
@@ -14,14 +14,13 @@ const Resultados = () => {
     const history = useHistory()
     let classes = useStyles()
     const [elecciones, setElecciones] = useState()
-    const [socio, setSocio] = useState()
     useEffect(() => {
         if(!localStorage.getItem('directiva')) {
             return history.push("/login")
         }
-    }, [])
+    })
     useEffect(() => {
-        onSnapshot(collection(db, "CandidatoPresidente"), (snapshot) => {
+        onSnapshot(collection(db, "Candidatos"), (snapshot) => {
             let candidatos = snapshot.docs.map(doc => {
                 return doc.data()
             })
@@ -33,7 +32,13 @@ const Resultados = () => {
             <Typography variant="h2">
                 Resultados
             </Typography>
-            <div className={classes.cards}>
+            <Grid 
+                justifyContent="center"
+                alignItems="center"
+                container
+                spacing={2}
+                gap="1rem"
+            >
                 {
                 elecciones?.map(candidato => {
                     return(
@@ -53,7 +58,7 @@ const Resultados = () => {
                     )
                 })
                 }
-            </div>
+            </Grid>
         </section>
     );
 }

@@ -18,14 +18,14 @@ const db = getFirestore()
 
 const Login = () => {
     const classes = useStyles()
-    const [datos, setDatos] = useState({carnet:Number,fechaNacimiento: new Date() })
+    const [datos, setDatos] = useState({carnet:"",fechaNacimiento: new Date() })
     const [error, setError] = useState("")
     let history = useHistory()
 
     async function loginVotantes(e) {
         e.preventDefault()
         let votantes = []
-        const querySnap = await getDocs(collection(db, "Votantes"));
+        const querySnap = await getDocs(collection(db, "Socios"));
         querySnap.forEach((socio) => {
             votantes.push(socio.data())
         })
@@ -33,15 +33,19 @@ const Login = () => {
             return votante.CarnetIdentidad === datos.carnet 
                 && votante.FechaNacimiento === format(datos.fechaNacimiento, 'yyyy-MM-dd')        
         })
-        if(socio == undefined) {
+        if(socio === undefined) {
             return setError("Revise los datos introducidos")
         }
         if(socio?.Directiva === true) {
             localStorage.setItem('directiva', socio.CarnetIdentidad)
             history.push("/resultados")
-        } else {
+            return
+        }
+        if(socio?.Habilitado === true) {
             localStorage.setItem('votante', socio.CarnetIdentidad)
             history.push("/votar")
+        } else {
+            return setError("No esta Habilitado para votar")
         }
     }
     return (
@@ -61,7 +65,7 @@ const Login = () => {
                         label="Carnet de Identidad" 
                         type="number"
                         onInput={(e)=> {
-                            let carnet = parseInt(e.target.value)
+                            let carnet = e.target.value.toString()
                             setDatos({...datos, carnet})
                         }}
                     />

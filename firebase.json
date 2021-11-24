@@ -5,11 +5,16 @@
   },
   "hosting": {
     "public": "build",
-    "site": "club-social-progreso",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }

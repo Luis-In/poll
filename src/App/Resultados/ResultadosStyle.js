@@ -12,9 +12,5 @@ export default makeStyles(() => ({
     },
     card: {
         padding: "1rem"
-    },
-    cards: {
-        display: "flex",
-        gap: "2rem"
     }
 }))

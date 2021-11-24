@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Grid, Typography, Button } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import { useHistory } from "react-router-dom"
 import Candidato from './Candidato/Candidato'
 import useStyles from "./CandidatoStyle"
@@ -24,7 +24,7 @@ const Candidatos = ({}) => {
     }, [])
     useEffect(() => {
         async function candidatos() {
-            const datosCandidatos = await getDocs(collection(db, "CandidatoPresidente"));
+            const datosCandidatos = await getDocs(collection(db, "Candidatos"));
             let candidatosPresidente = []
             datosCandidatos.forEach((candidato) => {
                 candidatosPresidente.push(candidato.data())
@@ -35,7 +35,7 @@ const Candidatos = ({}) => {
     }, [])
     useEffect(() => {
         async function socioVotante() {
-            const socioRef = doc(db, "Votantes", localStorage.getItem('votante'))
+            const socioRef = doc(db, "Socios", localStorage.getItem('votante'))
             const socioSnap = await getDoc(socioRef)
             let datos = socioSnap.data()
             setSocio({nombre: datos.Nombre, voto: datos.Voto, apellido: datos.Apellido })

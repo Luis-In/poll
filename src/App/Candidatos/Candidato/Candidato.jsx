@@ -22,11 +22,11 @@ const Candidato = ({datos, voto}) => {
         }
     }
     async function handleVote () {
-        const votoRef = doc(db, "Votantes", localStorage.getItem('votante'))
+        const votoRef = doc(db, "Socios", localStorage.getItem('votante'))
         await updateDoc(votoRef, {
-            Voto: datos.value
+            Voto: datos.Value
         })
-        const candiRef = doc(db, "CandidatoPresidente", datos.value)
+        const candiRef = doc(db, "Candidatos", datos.Value)
         await updateDoc(candiRef, {
             Votos: increment(1)
         })
@@ -59,7 +59,7 @@ const Candidato = ({datos, voto}) => {
             onClose={handleClose}
             aria-labelledby="Confirmar Voto"
         >
-            <DialogTitle>Esta Seguro votar por {datos.nombre}</DialogTitle>
+            <DialogTitle>Esta Seguro votar por {datos.Nombre}</DialogTitle>
             <DialogActions className={classes.dialogActions}>
                 <Button
                     onClick={() => {handleClose(false)}}>Cancelar</Button>

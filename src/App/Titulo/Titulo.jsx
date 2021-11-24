@@ -1,4 +1,3 @@
-import { ClassNames } from '@emotion/react';
 import { Typography, Button, Card, CardActions, CardMedia } from '@mui/material'
 import { Link } from 'react-router-dom'
 import useStyles from './TituloStyle'

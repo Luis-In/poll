@@ -1,17 +1,17 @@
 import useStyles from "./AppStyle"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useEffect } from "react"
 //Components
 import Candidatos from './Candidatos/Candidatos'
 import Resultados from "./Resultados/Resultados"
 import Login from './Login/Login'
 import Titulo from "./Titulo/Titulo"
+
+// import { useEffect } from "react"
 // import listaSocios from "./listaSocios.json";
-// firebase
+//firebase
 // import {getFirestore, doc, setDoc } from "firebase/firestore";
 // import { initializeApp } from "firebase/app";
 // import firebaseConfig from './firebaseCon'
-// import { async } from "@firebase/util"
 
 // const app = initializeApp(firebaseConfig);
 // const db = getFirestore()
@@ -21,16 +21,13 @@ function App() {
   //   let socios = Object.entries(listaSocios)
   //   console.log(socios)
   //   async function subirLista() {
-  //     await setDoc(doc(db, "Votantes", socios[0][0]), {
-  //       ...socios[0][1]  
-  //     });
+  //     socios.forEach(async (socio) => {
+  //       await setDoc(doc(db, "Socios", socio[0]), {
+  //         ...socio[1]  
+  //       });
+  //     })
   //   }
   //   subirLista()
-  //   socios.forEach((socio) => {
-  //     await setDoc(doc(db, "Votantes", socio[0]), {
-  //       ...socio[1]  
-  //     });
-  //   })
 
   // }, [])
   const classes = useStyles()
