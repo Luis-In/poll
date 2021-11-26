@@ -12,5 +12,15 @@ export default makeStyles(() => ({
     },
     card: {
         padding: "1rem"
+    },
+    dnode: {
+        display: "none"
+    },
+    botones: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        justifyContent: "center",
+        alignItems: "center"
     }
 }))

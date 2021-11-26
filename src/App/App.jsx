@@ -5,15 +5,12 @@ import Candidatos from './Candidatos/Candidatos'
 import Resultados from "./Resultados/Resultados"
 import Login from './Login/Login'
 import Titulo from "./Titulo/Titulo"
-
-// import { useEffect } from "react"
-// import listaSocios from "./listaSocios.json";
-//firebase
-// import {getFirestore, doc, setDoc } from "firebase/firestore";
+//Firebase
 // import { initializeApp } from "firebase/app";
 // import firebaseConfig from './firebaseCon'
-
-// const app = initializeApp(firebaseConfig);
+// import listaSocios from "./listaSocios.json";
+// import {getFirestore, doc, setDoc } from "firebase/firestore";
+// initializeApp(firebaseConfig);
 // const db = getFirestore()
 
 function App() {
@@ -39,7 +36,7 @@ function App() {
             <Titulo />
           </Route>
           <Route path="/login" exact>
-            <Login />
+            <Login/>
           </Route>
           <Route path="/votar" exact>
             <Candidatos />

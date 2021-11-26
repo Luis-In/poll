@@ -24,7 +24,7 @@ const Candidato = ({datos, voto}) => {
     async function handleVote () {
         const votoRef = doc(db, "Socios", localStorage.getItem('votante'))
         await updateDoc(votoRef, {
-            Voto: datos.Value
+            Voto: parseInt(datos.Value)
         })
         const candiRef = doc(db, "Candidatos", datos.Value)
         await updateDoc(candiRef, {
