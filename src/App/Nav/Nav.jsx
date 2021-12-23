@@ -18,7 +18,7 @@ const Nav = () => {
 
     return (
         <>
-        <AppBar position="static" style={{backgroundColor: "#272727"}} enableColorOnDark="true">
+        <AppBar position="sticky    " style={{backgroundColor: "#272727"}} enableColorOnDark="true">
             <Container maxWidth="xl">
                 <Toolbar disableGutters className={classes.nav}>
                     <Box sx={{flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
