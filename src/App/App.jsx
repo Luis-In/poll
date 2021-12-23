@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Candidatos from './Candidatos/Candidatos'
 import Resultados from "./Resultados/Resultados"
 import Login from './Login/Login'
-import Titulo from "./Titulo/Titulo"
+import Nav from "./Nav/Nav"
 //Firebase
 // import { initializeApp } from "firebase/app";
 // import firebaseConfig from './firebaseCon'
@@ -31,10 +31,8 @@ function App() {
   return (
     <Router>
       <div className={classes.root}>
+        <Nav />
         <Switch>
-          <Route path="/" exact>
-            <Titulo />
-          </Route>
           <Route path="/login" exact>
             <Login/>
           </Route>
